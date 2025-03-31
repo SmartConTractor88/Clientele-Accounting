@@ -1,4 +1,3 @@
 date,name,contact,revenue,means_of_payment,service_type,note
-0,01/03/2025,John Legend,01745550000,500,Card,Afro Taper,Plans to write a new album.
-0,01/03/2025,Kendrick Lamar,01743332222,300,Card,Afro,Writing a new distrack.
-0,01/03/2025,Lebron James,01745552323,1000,Card,Buzz Cut,Plans to travel to Japan
+01/03/2025,John Legend,01748880000,100.0,Card,Afro Taper,Writing a new album.
+01/03/2025,Lebron James,01743332222,400.0,Crypto,Buzz Cut,Plans to travel to Japan.
