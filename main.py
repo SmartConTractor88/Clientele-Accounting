@@ -1,6 +1,20 @@
 import pandas as pd
 import datetime
 
+import sys
+import sqlite3
+
+connection = sqlite3.connect("database.db")
+cursor = connection.cursor()
+
+create_table = """
+CREATE TABLE IF NOT EXISTS revenues(date DATE, name TEXT, contact TEXT, 
+revenue FLOAT, paid_with TEXT, service_type TEXT, note TEXT)
+"""
+cursor.execute(create_table)
+connection.commit()
+connection.close()
+
 filepath = "client_data.csv"
 
 while True:
