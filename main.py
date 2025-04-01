@@ -23,6 +23,8 @@ while True:
 
     if "ADD" in user_action:
 
+        connection = sqlite3.connect("database.db")
+        cursor = connection.cursor()
         df = pd.read_csv(filepath, sep=",") 
 
         try: 
@@ -36,9 +38,18 @@ while True:
 
             data = [[date, name, contact, revenue, paid_with, service_type, note]]
 
+            # add to csv
             new_data = pd.DataFrame(data)
             new_data.to_csv(filepath, index=False, mode="a", header=False)
 
+            # add to database
+            cursor.execute("INSERT INTO revenues VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                           (date, name, contact, revenue, paid_with, service_type, note))
+
+            connection.commit()
+            connection.close()
+
+            # show csv data
             df = pd.read_csv(filepath, sep=",", index_col=False) 
             df.set_index('date', inplace=True)
             print(f"Client {name} added successfully.")
@@ -51,9 +62,28 @@ while True:
     if "VIEW" in user_action:
 
         print("**CURRENT DATA**")
+        print()
+        # show csv
+        print("* CSV *")
+        print()
         df = pd.read_csv(filepath, sep=",", index_col=False) 
         df.set_index('date', inplace=True)
         print(df)
+        print()
+
+        # show database
+        print("* DATABASE *")
+        print()
+        connection = sqlite3.connect("database.db")
+        cursor = connection.cursor()
+        content = cursor.execute("SELECT * FROM revenues")
+        data = cursor.fetchall()
+
+        for row in data:
+            print(row)
+        connection.commit()
+        connection.close()
+        print()
 
     if "EXIT" in user_action:
 
